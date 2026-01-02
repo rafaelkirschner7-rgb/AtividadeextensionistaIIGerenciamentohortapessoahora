@@ -1,0 +1,35 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Relatório de Horas por Usuário{% endblock %}
+{% block content %}
+<h2>Relatório de Horas Trabalhadas</h2>
+
+{% extends 'timesheet/base.html' %}
+{% block title %}Relatório de Horas por Usuário{% endblock %}
+{% block content %}
+<h2>Relatório de Horas Trabalhadas</h2>
+
+<form method="get" style="margin-bottom:1rem;">
+  <label>De: <input type="date" name="start_date" value="{{ start_date }}"></label>
+  <label>Até: <input type="date" name="end_date" value="{{ end_date }}"></label>
+  <button type="submit">Filtrar</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Usuário</th>
+      <th>Total de Horas</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for item in data %}
+      <tr>
+        <td>{{ item.username }}</td>
+        <td>{{ item.total_hours }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="2">Nenhum dado disponível.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

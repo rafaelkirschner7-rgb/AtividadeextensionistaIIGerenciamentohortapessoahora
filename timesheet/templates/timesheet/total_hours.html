@@ -1,0 +1,73 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Horas por Usuário{% endblock %}
+{% block content %}
+<h2>Soma de Horas Trabalhadas por Usuário</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Total de Horas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.user.username }}</td>
+            <td>{{ item.total_hours }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">Nenhum dado disponível.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
+{% extends 'timesheet/base.html' %}
+{% block title %}Horas por Usuário{% endblock %}
+{% block content %}
+<h2>Soma de Horas por Usuário</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Total de Horas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{ item.user.username }}</td>
+            <td>{{ item.total_hours }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">Nenhum dado disponível.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<form method="get">
+  <label>De: <input type="date" name="start_date" value="{{ start_date }}"></label>
+  <label>Até: <input type="date" name="end_date" value="{{ end_date }}"></label>
+  <button type="submit">Filtrar</button>
+</form>
+
+<h2>Soma de Horas por Usuário</h2>
+<table>
+  <thead>
+    <tr><th>Usuário</th><th>Total de Horas</th></tr>
+  </thead>
+  <tbody>
+    {% for item in data %}
+      <tr>
+        <td>{{ item.user.username }}</td>
+        <td>{{ item.total_hours }}</td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="2">Nenhum dado disponível.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endblock %}

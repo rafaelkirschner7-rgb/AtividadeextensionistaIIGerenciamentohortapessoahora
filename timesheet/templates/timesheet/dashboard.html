@@ -1,0 +1,29 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h2>Dashboard</h2>
+<form method="get">
+  <label>De: <input type="date" name="start_date" value="{{ start_date }}"></label>
+  <label>Até: <input type="date" name="end_date" value="{{ end_date }}"></label>
+  <button type="submit">Filtrar</button>
+</form>
+
+<p><strong>Total de horas trabalhadas:</strong> {{ total_hours }} h</p>
+{% if running %}
+<p><strong>Em execução:</strong> {{ running.project.name }} desde {{ running.start_time }}</p>
+<a href="{% url 'timesheet:entry_stop' running.id %}">Parar</a>
+{% else %}
+<p>Nenhuma entrada em execução.</p>
+{% endif %}
+<h3>Projetos ativos</h3>
+<ul>
+    {% for p in projects %}
+    <li>
+        {{ p.name }}
+        <a href="{% url 'timesheet:entry_start' p.id %}">Iniciar</a>
+    </li>
+    {% empty %}
+    <li>Sem projetos ainda.</li>
+    {% endfor %}
+</ul>
+{% endblock %}

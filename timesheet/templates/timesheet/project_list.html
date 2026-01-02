@@ -1,0 +1,22 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Projetos{% endblock %}
+{% block content %}
+<h2>Projetos</h2>
+<a href="{% url 'timesheet:project_create' %}">Novo Projeto</a>
+<table>
+  <thead>
+    <tr><th>Nome</th><th>Ativo</th><th>Ações</th></tr>
+  </thead>
+  <tbody>
+    {% for p in projects %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.active|yesno:"Sim,Não" }}</td>
+        <td><a href="{% url 'timesheet:project_update' p.id %}">Editar</a></td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="3">Sem projetos cadastrados.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

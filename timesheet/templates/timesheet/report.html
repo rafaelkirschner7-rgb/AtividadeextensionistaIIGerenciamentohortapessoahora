@@ -1,0 +1,35 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Relatórios{% endblock %}
+{% block content %}
+<h2>Relatório de Horas</h2>
+<p><strong>Total:</strong> {{ total_hours }} h</p>
+
+<h3>Por projeto</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Projeto</th>
+            <th>Horas</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for name, hours in by_project.items %}
+        <tr>
+            <td>{{ name }}</td>
+            <td>{{ hours }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">Sem dados.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Entradas</h3>
+<ul>
+    {% for e in entries %}
+    <li>{{ e.date }} - {{ e.project.name }}: {{ e.start_time }} → {{ e.end_time }} ({{ e.duration_hours }} h)</li>
+    {% endfor %}
+</ul>
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'timesheet/base.html' %}
+{% block title %}Entradas{% endblock %}
+{% block content %}
+<h2>Entradas</h2>
+<a href="{% url 'timesheet:entry_create' %}">Nova Entrada</a>
+<table>
+    <thead>
+        <tr>
+            <th>Projeto</th>
+            <th>Data</th>
+            <th>Início</th>
+            <th>Término</th>
+            <th>Horas</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for e in entries %}
+        <tr>
+            <td>{{ e.project.name }}</td>
+            <td>{{ e.date }}</td>
+            <td>{{ e.start_time }}</td>
+            <td>{{ e.end_time }}</td>
+            <td>{{ e.duration_hours }}</td>
+            <td>
+                <a href="{% url 'timesheet:entry_update' e.id %}">Editar</a>
+                <form action="{% url 'timesheet:entry_delete' e.id %}" method="post" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit">Excluir</button>
+                </form>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="6">Sem entradas.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

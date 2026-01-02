@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}Controle de Horas{% endblock %}</title>
+  <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+</head>
+
+<body>
+  <header>
+    <h1>Controle de Horas</h1>
+    <nav>
+      <a href="{% url 'timesheet:dashboard' %}">Dashboard</a>
+      <a href="{% url 'timesheet:project_list' %}">Projetos</a>
+      <a href="{% url 'timesheet:entry_list' %}">Entradas</a>
+      <a href="{% url 'timesheet:report' %}">Relatórios</a>
+      {% if user.is_authenticated %}
+      <span>Olá, {{ user.username }}</span>
+      <form action="{% url 'logout' %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        <button type="submit" style="background:none;border:none;color:blue;cursor:pointer;">
+          Sair
+        </button>
+      </form>
+      {% else %}
+      <a href="{% url 'login' %}">Entrar</a>
+      {% endif %}
+    </nav>
+  </header>
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+  <footer>
+    <small>&copy; {{ now|date:"Y" }} Controle de Horas</small>
+  </footer>
+</body>
+
+</html>
